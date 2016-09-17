@@ -1,6 +1,8 @@
 var sharedb = require('sharedb/lib/client');
 var richText = require('rich-text');
 var Quill = require('quill');
+var WebSocket = require('reconnecting-websocket');
+
 sharedb.types.register(richText.type);
 
 let wsUrl;
@@ -11,7 +13,8 @@ if (window.location.protocol === "http:") {
 }
 
 // Open WebSocket connection to ShareDB server
-var socket = new WebSocket(wsUrl);
+const options = {connectionTimeout: 5000};
+var socket = new WebSocket(wsUrl, null, options);
 var connection = new sharedb.Connection(socket);
 
 // For testing reconnection
