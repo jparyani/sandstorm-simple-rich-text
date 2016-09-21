@@ -38,6 +38,14 @@ function startServer() {
     backend.listen(stream);
   });
 
+  backend.use('submit', function (action, cb) {
+    const permissions = action.agent.stream.ws.upgradeReq.headers['x-sandstorm-permissions'];
+    if (!permissions || permissions.indexOf("write") === -1) {
+      throw new Error("User does not have write permissions");
+    }
+    cb();
+  });
+
   server.listen(8080);
   console.log('Listening on http://localhost:8080');
 }
