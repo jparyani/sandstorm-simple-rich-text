@@ -40,4 +40,16 @@ doc.subscribe(function(err) {
     if (source === quill) return;
     quill.updateContents(op);
   });
+
+  function permListener () {
+    var permissions = JSON.parse(this.responseText);
+    if (permissions.indexOf("modify") === -1) {
+      quill.disable();
+    }
+  }
+
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", permListener);
+  oReq.open("GET", "/_permissions");
+  oReq.send();
 });

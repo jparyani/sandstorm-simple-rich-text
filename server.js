@@ -29,6 +29,15 @@ function startServer() {
   var app = express();
   app.use(express.static('static'));
   app.use(express.static('node_modules/quill/dist'));
+  app.get("/_permissions", function (req, res) {
+    const permissions = req.headers['x-sandstorm-permissions'];
+    // if (!permissions) {
+    //   res.status(500).send("no permissions");
+    // } else {
+      res.send(permissions.split(','));
+    // }
+  });
+
   var server = http.createServer(app);
 
   // Connect any incoming WebSocket connection to ShareDB
@@ -40,7 +49,7 @@ function startServer() {
 
   backend.use('submit', function (action, cb) {
     const permissions = action.agent.stream.ws.upgradeReq.headers['x-sandstorm-permissions'];
-    if (!permissions || permissions.indexOf("write") === -1) {
+    if (!permissions || permissions.indexOf("modify") === -1) {
       throw new Error("User does not have write permissions");
     }
     cb();
