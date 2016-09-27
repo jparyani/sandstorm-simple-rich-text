@@ -320,6 +320,7 @@ opt/app/package.json
 opt/app/server.js
 opt/app/static/dist/bundle.js
 opt/app/static/index.html
+opt/app/static/spinner.gif
 proc/cpuinfo
 sandstorm-http-bridge
 sandstorm-http-bridge-config
