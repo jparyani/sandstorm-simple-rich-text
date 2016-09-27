@@ -43,6 +43,8 @@ lib/x86_64-linux-gnu/libtinfo.so.5
 lib/x86_64-linux-gnu/libtinfo.so.5.9
 lib64/ld-linux-x86-64.so.2
 opt/app
+opt/app/.git/HEAD
+opt/app/.git/refs/heads/master
 opt/app/.sandstorm/launcher.sh
 opt/app/README.md
 opt/app/node_modules/express/index.js
