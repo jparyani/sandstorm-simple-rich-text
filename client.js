@@ -30,11 +30,22 @@ window.connect = function() {
 var doc = connection.get('examples', 'richtext');
 doc.subscribe(function(err) {
   if (err) throw err;
+  var outstandingRequests = 0;
   var quill = new Quill('#editor', {theme: 'snow'});
   quill.setContents(doc.data);
   quill.on('text-change', function(delta, oldDelta, source) {
     if (source !== 'user') return;
-    doc.submitOp(delta, {source: quill});
+    document.getElementById("spinner").style.display = "block";
+    ++outstandingRequests;
+    doc.submitOp(delta, {source: quill}, function (err) {
+      if (err) {
+        // TODO: show something?
+      }
+
+      if (--outstandingRequests === 0) {
+        document.getElementById("spinner").style.display = "none";
+      }
+    });
   });
   doc.on('op', function(op, source) {
     if (source === quill) return;
