@@ -1,0 +1,1 @@
+Simple Rich Text Editor is a simple text editing app built on top of [ShareDB](https://github.com/share/sharedb) and [Quill](https://quilljs.com/). It is real-time collaborative, but other than that is severely lacking in features.
