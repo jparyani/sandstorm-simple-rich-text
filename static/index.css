@@ -1,0 +1,14 @@
+#spinner {
+  opacity: 0;
+  position: fixed;
+  top: 12px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  transition: opacity 1s linear;
+}
+
+#spinner.visible {
+  opacity: 1;
+  transition: opacity 0s;
+}

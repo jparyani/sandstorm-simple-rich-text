@@ -32,18 +32,20 @@ doc.subscribe(function(err) {
   if (err) throw err;
   var outstandingRequests = 0;
   var quill = new Quill('#editor', {theme: 'snow'});
+  // TODO(now): error in qull.js: line with lastOp.insert[lastOp.insert.length - 1] fails if lastOp isn't an insert.
   quill.setContents(doc.data);
   quill.on('text-change', function(delta, oldDelta, source) {
     if (source !== 'user') return;
-    document.getElementById("spinner").style.display = "block";
+    document.getElementById("spinner").className = "visible";
     ++outstandingRequests;
     doc.submitOp(delta, {source: quill}, function (err) {
       if (err) {
-        // TODO: show something?
+        console.error(err);
+        // TODO(someday): display this to user
       }
 
       if (--outstandingRequests === 0) {
-        document.getElementById("spinner").style.display = "none";
+      document.getElementById("spinner").className = "";
       }
     });
   });
