@@ -33,6 +33,10 @@ doc.subscribe(function(err) {
   var outstandingRequests = 0;
   var quill = new Quill('#editor', {theme: 'snow'});
   // TODO(now): error in qull.js: line with lastOp.insert[lastOp.insert.length - 1] fails if lastOp isn't an insert.
+  while (doc.data.ops.length > 0 && !doc.data.ops[doc.data.ops.length - 1].insert) {
+    // For some reason, ShareDB will sometimes store garbage retain/delete ops at the end. Filter them out for now (TODO(someday): fix ShareDB or Quill)
+    doc.data.ops = doc.data.ops.slice(0, -1);
+  }
   quill.setContents(doc.data);
   quill.on('text-change', function(delta, oldDelta, source) {
     if (source !== 'user') return;
