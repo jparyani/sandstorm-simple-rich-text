@@ -319,6 +319,7 @@ opt/app/node_modules/ws/package.json
 opt/app/package.json
 opt/app/server.js
 opt/app/static/dist/bundle.js
+opt/app/static/index.css
 opt/app/static/index.html
 opt/app/static/spinner.gif
 proc/cpuinfo
