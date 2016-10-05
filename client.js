@@ -26,12 +26,34 @@ window.connect = function() {
   connection.bindToSocket(socket);
 };
 
+var toolbarOptions = [
+  [{ 'header': [1, 2, 3, 4, false] }],
+  [{ 'font': [] }],
+  ['bold', 'italic', 'underline', 'strike'],
+  ['blockquote', 'code-block'],
+
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+
+  [{ 'color': [] }, { 'background': [] }],
+  [{ 'align': [] }],
+
+  ['link', 'image'],
+
+  ['clean'],
+];
+
 // Create local Doc instance mapped to 'examples' collection document with id 'richtext'
 var doc = connection.get('examples', 'richtext');
 doc.subscribe(function(err) {
   if (err) throw err;
   var outstandingRequests = 0;
-  var quill = new Quill('#editor', {theme: 'snow'});
+  var quill = new Quill('#editor', {
+    theme: 'snow',
+    modules: {
+      syntax: true,
+      toolbar: toolbarOptions,
+    },
+  });
   // TODO(now): error in qull.js: line with lastOp.insert[lastOp.insert.length - 1] fails if lastOp isn't an insert.
   while (doc.data.ops.length > 0 && !doc.data.ops[doc.data.ops.length - 1].insert) {
     // For some reason, ShareDB will sometimes store garbage retain/delete ops at the end. Filter them out for now (TODO(someday): fix ShareDB or Quill)

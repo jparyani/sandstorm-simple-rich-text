@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.14.0",
+    "highlightjs": "^8.7.0",
     "quill": "^1.0.4",
     "reconnecting-websocket": "^1.4.4",
     "rich-text": "^3.0.1",
